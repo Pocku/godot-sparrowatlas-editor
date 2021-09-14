@@ -4,7 +4,6 @@
 
 A plugin made to convert Adobe Flash .xml animations to Godot animation type, 
 making easier to handle multiple spritesheets.
-Created by Pockui
 
 ---
 
