@@ -2,17 +2,9 @@
 
 ---
 
-The **Friday Night Funkin: Gamemaker Remake** *(FNF: GMS2 Remake)* for short, is a remake of the game titled **Friday Night Funkin** by ninja_muffin99 & friends on itch.io.
-If you have not played the original game, *please* play it [here](https://ninja-muffin24.itch.io/funkin).
-
-This project is a passion project, and **I will not profit** from this remakes creation.
-
-## Download
-Here **[here](https://github.com/ImCodist/Friday-Night-Funkin-Gamemaker-Remake/releases/)**
-
-## Motivation
-I made this out of *love for the original game* and to *improve* my skill in new areas of Gamemaker Studio.\
-As a result I have learned how to work with *higher-res graphics*, and how to make a *ddr style rhythm game*.
+A plugin made to convert Adobe Flash .xml animations to Godot animation type, 
+making easier to handle multiple spritesheets.
+Created by Pockui
 
 ---
 
