@@ -152,9 +152,9 @@ func OnButtonPressed(id):
 			yield(objects["filePath"],"popup_hide");
 	
 			if not objects["filePath"].get_ok():
-				print("Didn't found a way propely");
+				print("Couldn't export the new animation properly.");
 				return;
-			print("Found a way to save the file.")
+			print("Exported the new animation successfully.")
 			
 			if animation!=null and sheet!=null and sprite!=null:
 				var newAnim=Animation.new();
