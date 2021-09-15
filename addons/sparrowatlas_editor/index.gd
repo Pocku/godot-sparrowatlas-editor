@@ -102,7 +102,6 @@ func ToggleEditor(state):
 							obj.editable=true;
 						else:
 							obj.disabled=false;
-							print("uh")
 		else:
 			dock.modulate.a=0.5;
 			for key in objects.keys():
