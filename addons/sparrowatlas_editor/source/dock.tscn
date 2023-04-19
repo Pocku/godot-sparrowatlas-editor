@@ -1,0 +1,143 @@
+[gd_scene load_steps=2 format=3 uid="uid://pbx8h82btw6j"]
+
+[ext_resource type="Theme" uid="uid://brm70mrpblmnq" path="res://addons/sparrowatlas_editor/theme/theme.tres" id="1"]
+
+[node name="Dock" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FilePath" type="FileDialog" parent="."]
+title = "Open a Directory"
+size = Vector2i(384, 162)
+mode = 2
+theme = ExtResource("1")
+ok_button_text = "Select This Folder"
+file_mode = 2
+show_hidden_files = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CredentialsText" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Credentials"
+
+[node name="Sprite" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Title0" type="Label" parent="VBoxContainer/Sprite"]
+layout_mode = 2
+text = "Sprite"
+
+[node name="SpritePath" type="LineEdit" parent="VBoxContainer/Sprite"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://icon.png"
+
+[node name="Sheet" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Title1" type="Label" parent="VBoxContainer/Sheet"]
+layout_mode = 2
+text = "Sheet"
+
+[node name="SheetPath" type="LineEdit" parent="VBoxContainer/Sheet"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://icon.png"
+
+[node name="Apply" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1")
+text = "Apply Resources"
+
+[node name="AnimationText" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Animation"
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Title10" type="Label" parent="VBoxContainer/Name"]
+layout_mode = 2
+text = "Name"
+
+[node name="Name" type="LineEdit" parent="VBoxContainer/Name"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Idle"
+
+[node name="Prefix" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Title4" type="Label" parent="VBoxContainer/Prefix"]
+layout_mode = 2
+text = "Prefix"
+
+[node name="Prefix" type="LineEdit" parent="VBoxContainer/Prefix"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Idle Pose0"
+
+[node name="Index" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Title8" type="Label" parent="VBoxContainer/Index"]
+layout_mode = 2
+text = "Index"
+
+[node name="Index" type="HSlider" parent="VBoxContainer/Index"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Offset" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Title5" type="Label" parent="VBoxContainer/Offset"]
+layout_mode = 2
+text = "Offset"
+
+[node name="Title6" type="Label" parent="VBoxContainer/Offset"]
+self_modulate = Color(1, 0.952941, 0.14902, 1)
+layout_mode = 2
+text = "x"
+
+[node name="OffsetX" type="SpinBox" parent="VBoxContainer/Offset"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1e+08
+max_value = 1e+08
+
+[node name="Title7" type="Label" parent="VBoxContainer/Offset"]
+self_modulate = Color(1, 0.952941, 0.14902, 1)
+layout_mode = 2
+text = "y"
+
+[node name="OffsetY" type="SpinBox" parent="VBoxContainer/Offset"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1e+08
+max_value = 1e+08
+
+[node name="Title9" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0/0"
+
+[node name="Apply1" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1")
+text = "Apply"
+
+[node name="Save" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1")
+text = "Save"
