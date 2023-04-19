@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 var dock=null;
@@ -9,37 +9,37 @@ var objects:={};
 var editorSelection=get_editor_interface().get_selection();
 
 func _enter_tree() -> void:
-	dock=preload("res://addons/sparrowatlas_editor/source/dock.tscn").instance();
+	dock=preload("res://addons/sparrowatlas_editor/source/dock.tscn").instantiate();
 	dock.name="SparrowAtlas"
 	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_UL,dock);
 	
-	editorSelection.connect("selection_changed",self,"OnEditorSelectionChanged");
-	objects["spritePath"]=dock.get_node("Panel/SpritePath");
-	objects["apply"]=dock.get_node("Panel/Apply");
-	objects["apply1"]=dock.get_node("Panel/Apply1");
-	objects["save"]=dock.get_node("Panel/Save");
-	objects["sheetPath"]=dock.get_node("Panel/SheetPath");
-	objects["offsetX"]=dock.get_node("Panel/OffsetX");
-	objects["offsetY"]=dock.get_node("Panel/OffsetY");
-	objects["animIndex"]=dock.get_node("Panel/Index");
-	objects["prefix"]=dock.get_node("Panel/Prefix");
-	objects["name"]=dock.get_node("Panel/Name");
-	objects["applyButton"]=dock.get_node("Panel/Apply");
+	editorSelection.selection_changed.connect(OnEditorSelectionChanged);
+	objects["spritePath"]=dock.get_node("VBoxContainer/Sprite/SpritePath");
+	objects["apply"]=dock.get_node("VBoxContainer/Apply");
+	objects["apply1"]=dock.get_node("VBoxContainer/Apply1");
+	objects["save"]=dock.get_node("VBoxContainer/Save");
+	objects["sheetPath"]=dock.get_node("VBoxContainer/Sheet/SheetPath");
+	objects["offsetX"]=dock.get_node("VBoxContainer/Offset/OffsetX");
+	objects["offsetY"]=dock.get_node("VBoxContainer/Offset/OffsetY");
+	objects["animIndex"]=dock.get_node("VBoxContainer/Index/Index");
+	objects["prefix"]=dock.get_node("VBoxContainer/Prefix/Prefix");
+	objects["name"]=dock.get_node("VBoxContainer/Name/Name");
+	objects["applyButton"]=dock.get_node("VBoxContainer/Apply");
 	objects["target"]=null;
-	objects["customOffsetX"]=dock.get_node("Panel/OffsetX");
-	objects["customOffsetY"]=dock.get_node("Panel/OffsetY");
-	objects["titleFrames"]=dock.get_node("Panel/Title9");
+	objects["customOffsetX"]=dock.get_node("VBoxContainer/Offset/OffsetX");
+	objects["customOffsetY"]=dock.get_node("VBoxContainer/Offset/OffsetY");
+	objects["titleFrames"]=dock.get_node("VBoxContainer/Title9");
 	objects["filePath"]=dock.get_node("FilePath");
 	
 	for key in objects.keys():
 		var obj=objects[key];
 		if obj!=null:
 			if obj.get_class()=="Button":
-				if not obj.is_connected("pressed",self,"OnButtonPressed"):
-					obj.connect("pressed",self,"OnButtonPressed",[obj.name]);
+				if not obj.pressed.is_connected(OnButtonPressed):
+					obj.pressed.connect(OnButtonPressed.bind(obj.name));
 	
-	objects["prefix"].connect("text_changed",self,"PrefixChanged");
-	objects["animIndex"].connect("value_changed",self,"OnIndexChanged");
+	objects["prefix"].text_changed.connect(PrefixChanged);
+	objects["animIndex"].value_changed.connect(OnIndexChanged);
 	ToggleEditor(false);
 	pass
 
@@ -80,9 +80,9 @@ func Notification(what,data):
 
 func OnEditorSelectionChanged():
 	var nodes=editorSelection.get_selected_nodes();
-	if not nodes.empty():
+	if not nodes.is_empty():
 		var node=nodes[0];
-		if node.get_class()=="Sprite":
+		if node.get_class()=="Sprite2D":
 			ToggleEditor(true);
 			objects["target"]=node;
 			print("target: ",objects["target"])
@@ -119,8 +119,8 @@ func OnButtonPressed(id):
 			if dock!=null:
 				var spritePath=objects["spritePath"].text;
 				var sheetPath=objects["sheetPath"].text;
-				var newSprite=File.new();
-				var newSheet=File.new();
+				var newSprite = FileAccess;
+				var newSheet = FileAccess;
 				
 				spritePath=str(spritePath).replace('\\',"/");
 				sheetPath=str(sheetPath).replace('\\',"/");
@@ -148,12 +148,12 @@ func OnButtonPressed(id):
 			var filePathResponse:=false;
 			objects["filePath"].popup();
 			
-			yield(objects["filePath"],"popup_hide");
-	
-			if not objects["filePath"].get_ok():
-				print("Couldn't export the new animation properly.");
-				return;
-			print("Exported the new animation successfully.")
+			await objects["filePath"].dir_selected;
+
+			#if not objects["filePath"].get_ok():
+			#	print("Couldn't export the new animation properly.");
+			#	return;
+			#print("Exported the new animation successfully.")
 			
 			if animation!=null and sheet!=null and sprite!=null:
 				var newAnim=Animation.new();
@@ -171,7 +171,7 @@ func OnButtonPressed(id):
 					newAnim.track_insert_key(newTrackRect,index*0.5,targetCrop,0);
 					newAnim.track_insert_key(newTrackOffset,index*0.5,targetOffset,0);
 		
-				ResourceSaver.save(str(objects["filePath"].current_path)+objects["name"].text+".tres",newAnim)
+				ResourceSaver.save(newAnim, str(objects["filePath"].current_path)+objects["name"].text+".tres")
 			pass;
 			
 		
